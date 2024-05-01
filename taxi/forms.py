@@ -8,7 +8,12 @@ from taxi.models import Driver, Car
 class DriverCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Driver
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "license_number", "email")
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "license_number",
+            "email"
+        )
 
 
 class DriverLicenseUpdateForm(forms.ModelForm):
@@ -23,7 +28,10 @@ class DriverLicenseUpdateForm(forms.ModelForm):
         print(license_number[3:], license_number[:3])
         if len(license_number) != self.LICENSE_LENGTH:
             raise ValidationError("length of license number must be 8")
-        if not license_number[3:].isnumeric() or not license_number[:3].isalpha():
+        if (
+                not license_number[3:].isnumeric()
+                or not license_number[:3].isalpha()
+        ):
             raise ValidationError("license number must end with 5 digits")
         return license_number
 
